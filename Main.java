@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Stack;
 
 public class Main {
     public int[] twoSum(int[] nums, int target) {
@@ -42,5 +43,29 @@ public class Main {
         return Arrays.stream(nums)
                 .distinct()
                 .count() < nums.length;
+    }
+
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c);
+            } else {
+                if (stack.isEmpty())
+                    return false;
+
+                char top = stack.pop();
+
+                if (c == ')' && top != '(')
+                    return false;
+                if (c == ']' && top != '[')
+                    return false;
+                if (c == '}' && top != '{')
+                    return false;
+            }
+        }
+
+        return stack.isEmpty();
     }
 }
