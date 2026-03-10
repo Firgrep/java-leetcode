@@ -45,6 +45,11 @@ public class Main {
                 .count() < nums.length;
     }
 
+    /**
+     * Order matters in this exercise, so instead of trying to manhandle the
+     * issue with tons of if conditions, we simply use a stack to track "Last-In,
+     * First-Out" (LIFO).
+     */
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
 
