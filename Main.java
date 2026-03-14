@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Stack;
 
@@ -72,5 +73,27 @@ public class Main {
         }
 
         return stack.isEmpty();
+    }
+
+    public boolean isAnagramUnoptimized(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        HashMap<Character, Integer> sLetters = new HashMap<>();
+        HashMap<Character, Integer> tLetters = new HashMap<>();
+
+        String sLower = s.toLowerCase();
+        String tLower = t.toLowerCase();
+
+        for (char c : sLower.toCharArray()) {
+            sLetters.put(c, sLetters.getOrDefault(c, 0) + 1);
+        }
+
+        for (char c : tLower.toCharArray()) {
+            tLetters.put(c, tLetters.getOrDefault(c, 0) + 1);
+        }
+
+        return sLetters.equals(tLetters);
     }
 }
