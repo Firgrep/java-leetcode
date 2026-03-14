@@ -96,4 +96,30 @@ public class Main {
 
         return sLetters.equals(tLetters);
     }
+
+    public void reverseString(char[] s) {
+
+        for (int i = 0; i < s.length / 2; i++) {
+            int currentLast = s.length - i - 1;
+            char temp = s[currentLast];
+
+            s[currentLast] = s[i];
+            s[i] = temp;
+        }
+
+    }
+
+    public void reverseStringWithWhile(char[] s) {
+        int left = 0;
+        int right = s.length - 1;
+
+        while (left < right) {
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+
+            left++;
+            right--;
+        }
+    }
 }
