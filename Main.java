@@ -122,4 +122,99 @@ public class Main {
             right--;
         }
     }
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+
+        ListNode currentNode = list1;
+        ListNode currentOtherNode = list2;
+
+        ListNode anchor = new ListNode(0);
+        ListNode tail = anchor;
+
+        while (currentNode != null && currentOtherNode != null) {
+            if (currentNode.val < currentOtherNode.val) {
+                tail.next = currentNode;
+                currentNode = currentNode.next;
+            } else {
+                tail.next = currentOtherNode;
+                currentOtherNode = currentOtherNode.next;
+            }
+            tail = tail.next;
+        }
+
+        if (currentNode != null) {
+            tail.next = currentNode;
+        } else {
+            tail.next = currentOtherNode;
+        }
+
+        return anchor.next;
+    }
+
+    /**
+     * Slower because uses memory overhead.
+     */
+    public boolean hasCycleWithHash(ListNode head) {
+        ListNode currentNode = head;
+
+        HashSet<ListNode> s = new HashSet<>();
+
+        while (currentNode != null) {
+            if (s.contains(currentNode)) {
+                return true;
+            }
+            s.add(currentNode);
+            currentNode = currentNode.next;
+
+        }
+
+        return false;
+    }
+
+    /**
+     * Using tortoise and hare strategy.
+     * 
+     * If one is slow and other fast, and there is a loop,
+     * then eventually one will "catch up" to the other one,
+     * causing an identical match (in memory).
+     */
+    public boolean hasCycle(ListNode head) {
+        if (head == null)
+            return false;
+
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (fast == null) {
+                return false;
+            }
+            if (slow == fast) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
 }
